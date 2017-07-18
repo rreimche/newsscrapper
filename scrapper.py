@@ -1,7 +1,8 @@
-import sys
+#import sys
 import argparse
 import pymongo
 from pymongo.errors import InvalidName
+from pymongo.errors import BulkWriteError
 from twitterscraper import query_tweets
 
 
@@ -24,13 +25,22 @@ db = client[args.database]
 collection = db[args.collection]
 
 # get tweets
+tweets = []
 for tweet in query_tweets(args.query, args.limit):
-    t = {
+    tweets.append({
         "_id" : tweet.id,
         "timestamp" : tweet.timestamp,
         "user" : tweet.user,
         "fullname" : tweet.fullname,
         "text" : tweet.text
-    }
+    })
 
-    collection.insert_one(t)
+try:
+    collection.insert_many(tweets)
+    print args.collection + " done"
+
+except BulkWriteError as bwe:
+    print(bwe.details)
+    #you can also take this component and do more analysis
+    #werrors = bwe.details['writeErrors']
+    raise
