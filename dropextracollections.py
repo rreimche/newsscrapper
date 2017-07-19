@@ -44,6 +44,6 @@ for collection in collections:
             collections.remove(col)
 
     #db.command('db.' + the_one[0] + '.renameCollection("' +  + '")')
-    client.admin.command(SON([("renameCollection",args.database + "." + the_one[0]),\
-                              ("to",args.database + "." + the_one[0][:-1])]))
+    #client.admin.command(SON([("renameCollection",args.database + "." + the_one[0]),\
+    #                         ("to",args.database + "." + the_one[0][:-1])]))
     #db[the_one[0]].renameCollection(the_one[0][:-1])
