@@ -19,7 +19,7 @@ count = 0
 for line in headlines.read().split("\n"):
     for i in range(3):
         encoded_query = quote(line) + "%20since%3A2016-01-01%20until%3A2016-12-31"
-        job = "python scrapper.py " + args.database + " " + str(count) + "_" + str(i) + " " + encoded_query + " " + str(args.limit) + "\n"
+        job = "python scrapper.py " + args.database + " _" + str(count) + "_" + str(i) + " " + encoded_query + " " + str(args.limit) + "\n"
         jobs.write(job)
     count += 1
 
