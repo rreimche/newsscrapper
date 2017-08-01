@@ -3,7 +3,7 @@
 import argparse
 #import csv
 
-#from requests.utils import quote
+from requests.utils import quote
 
 parser = argparse.ArgumentParser("jobcomposer")
 parser.add_argument("inputfile", help="Filename to parse for headlines", type=str)
@@ -18,7 +18,7 @@ jobs = open(args.outputfile,"w")
 count = 0
 for line in headlines.read().split("\n"):
     for i in range(3):
-        encoded_query = line + "%20since%3A2016-01-01%20until%3A2016-12-31"
+        encoded_query = quote(line) + "%20since%3A2016-01-01%20until%3A2016-12-31"
         job = "python scrapper.py " + args.database + " " + str(count) + "_" + str(i) + " " + encoded_query + " " + str(args.limit) + "\n"
         jobs.write(job)
     count += 1
